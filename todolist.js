@@ -34,17 +34,19 @@ if (Meteor.isClient) {
     function save() {
         var el = document.getElementById('newTodo');
         var value = el.value;
-        var obj = {
-            name : el.value,
-            isDone : false,
-            insertedAt : new Date()
-        };
-
-        if(Meteor.userId()) {
-            obj.uid = Meteor.userId();
+        if(el.value.trim() !== '') {
+            var obj = {
+                name : el.value,
+                isDone : false,
+                insertedAt : new Date()
+            };
+            if(Meteor.userId()) {
+                obj.uid = Meteor.userId();
+            }
+            TodoCollection.insert(obj);
+            el.value = '';
         }
-        TodoCollection.insert(obj);
-        el.value = '';
+
     }
 
     Template.todos.events({
