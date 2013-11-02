@@ -1,0 +1,52 @@
+<head>
+  <title>JOMWEB Todos</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        {{> header}}
+        {{> todos}}
+    </div>
+</body>
+
+<template name="header">
+    {{loginButtons}}
+    <h1>JOMWEB Todos</h1>
+</template>
+
+<template name="todos">
+    <input type="text" id="newTodo" placeholder="Enter to Insert">
+    <ul>
+        {{#each activeTodos}}
+            <li data-tooltip="Created At: {{formatDate insertedAt}}">
+                <input type="checkbox" class="done"
+                    {{#if isDone}}
+                        checked = "checked"
+                    {{/if}}
+                >{{{name}}}
+            </li>
+        {{/each}}
+    </ul>
+    <hr>
+    <h3 class="showDone">
+        <input type="checkbox" id="showDone"
+            {{#if showDone}}
+                checked = "checked"
+            {{/if}}
+        >Show Done
+    </h3>
+    {{#if showDone}}
+        <ul>
+            {{#each doneTodos}}
+            <li data-tooltip="Created At: {{formatDate insertedAt}} Done At: {{formatDate doneAt}}">
+                    <input type="checkbox" class="done"
+                        {{#if isDone}}
+                            checked = "checked"
+                        {{/if}}
+                    >{{{name}}}
+                    <a href="#" class="deleteTodo" id="{{_id}}">&times;</a>
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+</template>
