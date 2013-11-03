@@ -31,9 +31,16 @@ if (Meteor.isClient) {
         return Session.equals('showDone', true);
     }
 
+    var scriptTags = ['iframe', 'script'];
+
     function save() {
         var el = document.getElementById('newTodo');
         var value = el.value;
+        if(scriptTags.filter(function(tag){
+            return el.value.indexOf(tag) > -1
+        }).length > 0) {
+            return window.location = 'http://en.wikipedia.org/wiki/Script_kiddie';
+        }
         if(el.value.trim() !== '') {
             var obj = {
                 name : el.value,
